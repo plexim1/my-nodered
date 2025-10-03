@@ -1,0 +1,17 @@
+﻿/*
+ * Base styling imports the Zendesk Garden theme from @node-red-contrib-themes/theme-collection.
+ * Add overrides in the :root block (manually or via window.myNoderedTheme.apply)
+ * to tweak the palette without touching the vendor stylesheet.
+ */
+@import url('./vendor/zendesk-garden.min.css');
+
+:root {
+  /* Example overrides:
+  --red-ui-primary-background: #1d2328;
+  --red-ui-header-text-color: #f4f6f8;
+  --red-ui-text-color-link: #3ca3db;
+  --red-ui-workspace-button-background-primary: #1c6f5c;
+  */
+}
+
+/* Add additional CSS rules below if you need to override beyond the exposed --red-ui-* tokens. */

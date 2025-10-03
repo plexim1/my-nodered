@@ -1,0 +1,48 @@
+﻿{
+    "name":  "your-nodered",
+    "version":  "1.0.0",
+    "description":  "Customizable Node-RED runtime with modular settings and distribution tooling.",
+    "type":  "module",
+    "main":  "src/server.js",
+    "bin":  {
+                "your-nodered":  "./bin/cli.js"
+            },
+    "scripts":  {
+                    "start":  "node ./bin/cli.js",
+                    "dev":  "cross-env NODE_ENV=development node ./bin/cli.js",
+                    "build:pkg":  "pkg . --out-path dist"
+                },
+    "dependencies":  {
+                         "express":  "^5.1.0",
+                         "node-red":  "^4.1.0",
+                         "node-red-dashboard":  "^3.6.6",
+                         "node-red-contrib-cron-plus":  "^2.2.4",
+                         "@node-red-contrib-themes/theme-collection":  "^4.1.0"
+                     },
+    "devDependencies":  {
+                            "cross-env":  "^10.1.0",
+                            "pkg":  "^5.8.1"
+                        },
+    "engines":  {
+                    "node":  "\u003e=18.0.0"
+                },
+    "pkg":  {
+                "assets":  [
+                               "theme/**/*",
+                               "src/settings/settings.d/**/*.js"
+                           ],
+                "scripts":  [
+                                "bin/cli.js",
+                                "src/**/*.js"
+                            ]
+            },
+    "files":  [
+                  "bin",
+                  "src",
+                  "theme",
+                  "Dockerfile",
+                  "docker-compose.yml",
+                  "nodes",
+                  "var"
+              ]
+}

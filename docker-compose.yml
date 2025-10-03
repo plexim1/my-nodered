@@ -1,0 +1,11 @@
+﻿services:
+  your-nodered:
+    build: .
+    ports:
+      - "1880:1880"
+    environment:
+      - LOG_LEVEL=info
+#    volumes:
+#      - nodered_data:/usr/src/app/var
+#volumes:
+#  nodered_data:
