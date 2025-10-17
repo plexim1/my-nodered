@@ -89,6 +89,45 @@ npm run build:pkg
 
 Ensure the pkg tool is installed (it is included as a dev dependency).
 
+### Windows EXE and Service
+
+- Build EXE (PowerShell):
+
+  ```powershell
+  # From repo root
+  .\scripts\build-windows.ps1            # defaults to node18-win-x64 -> dist\your-nodered.exe
+  # or customize target/output
+  .\scripts\build-windows.ps1 -Target node20-win-x64 -OutputName my-nodered.exe
+  ```
+
+- Install as a Windows Service using WinSW:
+
+  1) Prepare a folder for the service payload, e.g. `C:\Services\your-nodered`.
+  2) Copy the built EXE from `dist\your-nodered.exe` into that folder.
+  3) Copy the XML from `service\your-nodered.xml` into the same folder.
+  4) (Optional) Copy your `.env` file; create `var\` (for flows) and `logs\` directories.
+  5) Download WinSW (Windows Service Wrapper) x64 release:
+
+     - https://github.com/winsw/winsw/releases
+     - Place `WinSW-x64.exe` in the same folder and rename it to `your-nodered-service.exe`.
+     - Rename `your-nodered.xml` to `your-nodered-service.xml` so it shares the same basename as the WinSW binary.
+
+  6) Install and run (in elevated PowerShell):
+
+  ```powershell
+  Set-Location C:\Services\your-nodered
+  .\your-nodered-service.exe install
+  .\your-nodered-service.exe start
+  ```
+
+  - Check status: `sc.exe query your-nodered`
+  - Stop/remove: `./your-nodered-service.exe stop` then `./your-nodered-service.exe uninstall`
+
+  Notes:
+  - The XML sets `USERDIR` to `%BASE%\var` and `workingdirectory` to `%BASE%`. Ensure the service account has write permission to this folder.
+  - Adjust `PORT`, `LOG_LEVEL`, or add `FLOWS` in the XML `<env>` entries as needed.
+  - Logs are written under `%BASE%\logs` and roll by size and date.
+
 ## Docker Usage
 
 Build and run the container manually:

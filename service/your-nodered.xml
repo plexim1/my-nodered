@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <id>your-nodered</id>
+  <name>Your Node-RED</name>
+  <description>Custom Node-RED runtime as a Windows Service.</description>
+
+  <!-- Assumes this XML sits alongside the EXE and WinSW binary -->
+  <executable>%BASE%\your-nodered.exe</executable>
+  <arguments></arguments>
+  <workingdirectory>%BASE%</workingdirectory>
+
+  <!-- Environment passed to the runtime -->
+  <env name="NODE_ENV" value="production" />
+  <env name="USERDIR" value="%BASE%\var" />
+  <env name="LOG_LEVEL" value="info" />
+  <env name="PORT" value="1880" />
+  <!-- Uncomment to force a specific flows file name -->
+  <!-- <env name="FLOWS" value="flows.json" /> -->
+
+  <!-- Service behavior -->
+  <startmode>Automatic</startmode>
+  <onfailure action="restart" delay="5 sec" />
+  <stoptimeout>15 sec</stoptimeout>
+
+  <!-- Logging: logs rotate by size and date -->
+  <log mode="roll-by-size-time">
+    <sizeThreshold>10MB</sizeThreshold>
+    <keepFiles>8</keepFiles>
+    <pattern>yyyy-MM-dd</pattern>
+    <logpath>%BASE%\logs</logpath>
+  </log>
+</service>
+

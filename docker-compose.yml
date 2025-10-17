@@ -1,8 +1,10 @@
-﻿services:
+services:
   your-nodered:
     build: .
     ports:
-      - "1880:1880"
+      - "${UI_PORT:-1880}:${UI_PORT:-1880}"
+    env_file:
+      - .env
     environment:
       - LOG_LEVEL=info
 #    volumes:

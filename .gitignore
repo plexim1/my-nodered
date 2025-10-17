@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Builds / artifacts
+dist/
+coverage/
+.nyc_output/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Node-RED runtime data
+var/*
+!var/.gitkeep
+
+# Temporary files
+tmp/
+tmp*.html
+
+# Lockfiles (managed in container)
+package-lock.json
