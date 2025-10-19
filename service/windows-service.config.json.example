@@ -1,0 +1,23 @@
+{
+  "name": "your-nodered",
+  "description": "Custom Node-RED runtime",
+  "workingDirectory": "../", 
+  "script": "../bin/cli.js",
+
+  "envFile": "../.env",
+  "env": {
+    "NODE_ENV": "production",
+    "USERDIR": "./var",
+    "LOG_LEVEL": "info",
+    "PORT": "1880"
+  },
+
+  "nodeOptions": [
+    "--max-old-space-size=512"
+  ],
+  "scriptOptions": [
+  ],
+
+  "startOnInstall": true
+}
+

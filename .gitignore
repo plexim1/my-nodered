@@ -32,3 +32,6 @@ tmp*.html
 
 # Lockfiles (managed in container)
 package-lock.json
+
+# Local service config (use the .example template)
+service/windows-service.config.json

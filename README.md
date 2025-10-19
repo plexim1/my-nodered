@@ -128,6 +128,52 @@ Ensure the pkg tool is installed (it is included as a dev dependency).
   - Adjust `PORT`, `LOG_LEVEL`, or add `FLOWS` in the XML `<env>` entries as needed.
   - Logs are written under `%BASE%\logs` and roll by size and date.
 
+### Windows Service (node-windows)
+
+If Node is installed on the machine, you can run this runtime as a native Windows Service using node-windows, configured via an external JSON file (no hardcoded env in the script).
+
+Setup:
+- Copy the template and edit your settings:
+
+  ```powershell
+  Copy-Item service\windows-service.config.json.example service\windows-service.config.json
+  # Edit service\windows-service.config.json to set name, workingDirectory, envFile, etc.
+  ```
+
+- Install dependencies if needed:
+
+  ```powershell
+  npm install
+  ```
+
+- Install the service (run PowerShell as Administrator):
+
+  ```powershell
+  npm run service:install
+  ```
+
+- Uninstall later:
+
+  ```powershell
+  npm run service:uninstall
+  ```
+
+Config reference (service/windows-service.config.json):
+- `name`: Service name registered in SCM (e.g., `your-nodered`).
+- `description`: Text shown in Services UI.
+- `workingDirectory`: Base directory for the process; relative paths resolve from the config file location.
+- `script`: Entry script to run (defaults to `bin/cli.js`).
+- `envFile`: Path to an `.env` file whose variables are injected into the service environment.
+- `env`: Inline key-value env vars to set (overrides values from `envFile`).
+- `nodeOptions`: Optional array of Node flags (e.g., `--max-old-space-size=512`).
+- `scriptOptions`: Optional array of args passed to your script.
+- `startOnInstall`: When true, the service starts immediately after installation.
+
+Notes:
+- Run installs/uninstalls in an elevated PowerShell (Administrator).
+- Ensure the service account has write access to your `var/` directory for flows and credentials.
+- Since `bin/cli.js` already loads `dotenv/config`, you can also rely on a `.env` in `workingDirectory`; the service config provides a way to explicitly inject env if preferred.
+
 ## Docker Usage
 
 Build and run the container manually:
